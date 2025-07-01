@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Vico - NEXUS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            line-height: 1.6;
+            background: #f0f2f5; /* Fundo cinza claro para destacar as páginas brancas na tela */
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 1cm auto; /* Espaçamento para visualização na tela */
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+        
+        .cover {
+            height: 297mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40mm 30mm;
+            background: #0a0e27;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 120%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 123, 255, 0.1), transparent);
+        }
+        
+        .logo-section {
+            z-index: 1;
+        }
+        
+        .logo-vico {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        
+        .project-info {
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .project-code {
+            font-size: 18px;
+            color: #007bff;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .project-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #007bff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+        
+        .project-subtitle {
+            font-size: 22px;
+            color: #8892b0;
+            font-weight: 300;
+            margin-bottom: 50px;
+            line-height: 1.4;
+        }
+        
+        .client-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 30px 50px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: inline-block;
+        }
+        
+        .client-label {
+            font-size: 12px;
+            color: #8892b0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .client-name {
+            font-size: 32px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .footer-info {
+            text-align: center;
+            color: #8892b0;
+            font-size: 14px;
+            z-index: 1;
+        }
+        
+        .content {
+            padding: 30mm 25mm;
+        }
+        
+        h1 {
+            color: #0a0e27;
+            font-size: 32px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #007bff;
+            font-weight: 700;
+        }
+        
+        h2 {
+            color: #0a0e27;
+            font-size: 24px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        p {
+            margin-bottom: 18px;
+            text-align: justify;
+            color: #4a4a4a;
+            line-height: 1.8;
+        }
+        
+        ul {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            color: #4a4a4a;
+            line-height: 1.8;
+        }
+        
+        strong {
+            color: #0a0e27;
+            font-weight: 600;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #007bff;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            width: 45%;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #007bff;
+            border-radius: 50%;
+            top: 25px;
+        }
+        
+        .timeline-item:nth-child(odd)::before {
+            right: -35px;
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            left: -35px;
+        }
+        
+        .code-box {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            overflow-x: auto;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+        
+        .highlight {
+            color: #4ec9b0;
+            font-weight: 600;
+        }
+        
+        .string {
+            color: #ce9178;
+        }
+        
+        .button {
+            background: #007acc;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            display: inline-block;
+            margin: 0 5px;
+        }
+        
+        .benefits {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-top: 4px solid #007bff;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+        
+        .benefit-title {
+            font-weight: 600;
+            color: #0a0e27;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .benefit-text {
+            font-size: 14px;
+            color: #4a4a4a;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .download-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                margin: 0;
+                box-shadow: none;
+            }
+            .cover {
+                background: #0a0e27 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button id="download-pdf" class="download-btn no-print">Baixar PDF</button>
+
+    <div id="content-to-print">
+        <div class="page cover">
+            <div class="logo-section">
+                <img src="https://cdn.jsdelivr.net/gh/luizguspro/vico@e5b546585baa87e6acb3eee29c1c1a362ee4a2bc/VICO%20_%20Brand%20Design%20Project/Logo/Logo%20SVG/Logo%20apoio%20claro.svg" alt="Logo Vico" class="logo-vico">
+            </div>
+            
+            <div class="project-info">
+                <div class="project-code">Projeto</div>
+                <div class="project-name">NEXUS</div>
+                <div class="project-subtitle">Neural Efficiency eXperience Unified System<br>
+                Inteligência Operacional para Suporte de Alta Performance</div>
+                <div class="client-box">
+                    <div class="client-label">Preparado para</div>
+                    <div class="client-name">Henrique</div>
+                </div>
+            </div>
+            
+            <div class="footer-info">
+                <div>Proposta de Solução Tecnológica</div>
+                <div>30 de Junho de 2025 | Versão 1.0</div>
+            </div>
+        </div>
+        
+        <div class="page">
+            <div class="content">
+                <h1>Sistema Inteligente de Orquestração de Suporte</h1>
+                
+                <h2>Visão Executiva</h2>
+                <p>O <strong>NEXUS</strong> representa uma revolução na gestão de suporte técnico, criando uma ponte neural entre sistemas através de inteligência artificial aplicada e automação avançada. Nossa solução transforma radicalmente a experiência de atendimento, eliminando gargalos operacionais e capacitando equipes com ferramentas de última geração.</p>
+                
+                <p>Através da convergência tecnológica entre GLPI e WhatsApp Business, criamos um ecossistema digital onde a eficiência encontra a simplicidade, resultando em ganhos exponenciais de produtividade e qualidade de serviço.</p>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <p style="font-size: 18px; color: #007bff; font-weight: 600;">Implementação completa em 2 semanas</p>
+                </div>
+                
+                <h2>Objetivos Transformadores</h2>
+                <div class="benefits">
+                    <div class="benefit-card">
+                        <div class="benefit-title">Automação Neural</div>
+                        <div class="benefit-text">Sistema inteligente que elimina 100% das tarefas manuais repetitivas através de sincronização automática em tempo real.</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">Mobilidade Absoluta</div>
+                        <div class="benefit-text">Controle total dos chamados na palma da mão, com interface conversacional intuitiva via WhatsApp.</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">Precisão de Dados</div>
+                        <div class="benefit-text">Assistente virtual garante captura padronizada e completa de todas as informações críticas do atendimento.</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">Sincronia Perfeita</div>
+                        <div class="benefit-text">Arquitetura bidirecional mantém todos os sistemas perfeitamente alinhados em tempo real.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page">
+            <div class="content">
+                <h2>Arquitetura Tecnológica de Ponta</h2>
+                <p>O NEXUS utiliza uma arquitetura de microsserviços orientada a eventos, com o GLPI interno estabelecido como fonte única da verdade (Single Source of Truth), garantindo integridade e consistência absoluta dos dados.</p>
+                
+                <h3>Componentes Core do Sistema:</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Orquestrador Neural</h4>
+                        <p>Cérebro do sistema que processa toda a lógica de negócio sem armazenamento de dados, garantindo máxima performance e segurança.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Conectores Inteligentes GLPI</h4>
+                        <p>Módulos de alta performance para comunicação em tempo real com múltiplas instâncias GLPI através de APIs RESTful.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Gateway WhatsApp Enterprise</h4>
+                        <p>Interface oficial WhatsApp Business API com criptografia end-to-end e recursos avançados de mensageria.</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin: 40px 0 20px 0;">
+                    <h2 style="font-weight: 300; color: #0a0e27; font-size: 28px; margin-bottom: 10px;">Como Funciona</h2>
+                    <p style="color: #666; font-size: 16px;">Fluxo inteligente e automatizado de ponta a ponta</p>
+                </div>
+                
+                <div style="max-width: 600px; margin: 40px auto; text-align: center;">
+                    
+                    <div style="margin-bottom: 30px;">
+                        <div style="width: 80px; height: 80px; background: #ff6b6b; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
+                            <span style="color: white; font-size: 36px; font-weight: bold;">C</span>
+                        </div>
+                        <strong style="font-size: 16px;">Cliente abre chamado</strong><br>
+                        <small style="color: #666;">GLPI Angeloni</small>
+                    </div>
+                    
+                    <div style="color: #4ECDC4; font-size: 24px; margin: 20px 0;">↓</div>
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 40px 0;">
+                        
+                        <div>
+                            <div style="width: 60px; height: 60px; background: #ffa94d; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px;">
+                                <span style="color: white; font-size: 30px;">🔍</span>
+                            </div>
+                            <strong style="font-size: 14px;">Detecção</strong><br>
+                            <small style="color: #666; font-size: 11px;">Monitoramento<br>em tempo real</small>
+                        </div>
+                        
+                        <div style="color: #4ECDC4; font-size: 20px;">→</div>
+                        
+                        <div>
+                            <div style="width: 90px; height: 90px; background: #339af0; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; position: relative;">
+                                <span style="color: white; font-size: 36px; font-weight: bold;">O</span>
+                            </div>
+                            <strong style="font-size: 16px;">ORQUESTRADOR</strong><br>
+                            <small style="color: #666; font-size: 12px;">Cérebro do Sistema</small>
+                        </div>
+                        
+                        <div style="color: #4ECDC4; font-size: 20px;">→</div>
+                        
+                        <div>
+                            <div style="width: 60px; height: 60px; background: #51cf66; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px;">
+                                <span style="color: white; font-size: 24px; font-weight: bold;">+</span>
+                            </div>
+                            <strong style="font-size: 14px;">Criação</strong><br>
+                            <small style="color: #666; font-size: 11px;">GLPI Interno<br>+ Atribuição</small>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; gap: 180px; margin: 20px 0;">
+                        <div style="color: #4ECDC4; font-size: 20px;">↙</div>
+                        <div style="color: #4ECDC4; font-size: 20px;">↘</div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; gap: 180px; margin: 30px 0;">
+                        <div>
+                            <div style="width: 70px; height: 70px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px;">
+                                <span style="color: white; font-size: 32px; font-weight: bold;">W</span>
+                            </div>
+                            <strong style="font-size: 14px;">Notificação</strong><br>
+                            <small style="color: #666; font-size: 11px;">WhatsApp<br>para técnico</small>
+                        </div>
+                        
+                        <div>
+                            <div style="width: 70px; height: 70px; background: #9775fa; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px;">
+                                <span style="color: white; font-size: 28px; font-weight: bold;">CD</span>
+                            </div>
+                            <strong style="font-size: 14px;">Coleta de<br>Dados</strong><br>
+                            <small style="color: #666; font-size: 11px;">Solução<br>KM, Fotos</small>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; border-radius: 15px; padding: 20px; margin: 30px auto; max-width: 400px;">
+                        <strong style="font-size: 16px;">Técnico em Campo</strong>
+                        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 15px;">
+                            <div style="background: #339af0; color: white; padding: 8px 20px; border-radius: 8px; font-size: 13px;">
+                                Aceitar
+                            </div>
+                            <div style="background: #51cf66; color: white; padding: 8px 20px; border-radius: 8px; font-size: 13px;">
+                                Interagir
+                            </div>
+                            <div style="background: #20c997; color: white; padding: 8px 20px; border-radius: 8px; font-size: 13px;">
+                                Evidências
+                            </div>
+                        </div>
+                        <small style="color: #666; font-size: 12px;">Resolução guiada por IA</small>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; gap: 180px; margin: 20px 0;">
+                        <div style="color: #4ECDC4; font-size: 20px;">↘</div>
+                        <div style="color: #4ECDC4; font-size: 20px;">↙</div>
+                    </div>
+                    
+                    <div style="margin: 30px 0;">
+                        <div style="width: 80px; height: 80px; background: #51cf66; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
+                            <span style="color: white; font-size: 40px; font-weight: bold;">✓</span>
+                        </div>
+                        <strong style="font-size: 16px;">Sincronização Final</strong><br>
+                        <small style="color: #666;">Atualização em todos os sistemas</small>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; gap: 30px; margin-top: 40px;">
+                        <div style="background: #e7f5ff; border-radius: 15px; padding: 20px 25px; flex: 1; max-width: 200px;">
+                            <div style="font-size: 14px; font-weight: 600; color: #1971c2; margin-bottom: 5px;">GLPI Angeloni</div>
+                            <div style="color: #495057; font-size: 12px; line-height: 1.5;">Status: Resolvido<br>Com solução detalhada</div>
+                        </div>
+                        <div style="background: #f3f0ff; border-radius: 15px; padding: 20px 25px; flex: 1; max-width: 200px;">
+                            <div style="font-size: 14px; font-weight: 600; color: #6741d9; margin-bottom: 5px;">GLPI Interno</div>
+                            <div style="color: #495057; font-size: 12px; line-height: 1.5;">Histórico completo<br>Métricas atualizadas</div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <h3 style="margin-top: 50px; text-align: center;">Fases do Processo</h3>
+                
+                <h3>Fase Alpha: Detecção e Distribuição Inteligente</h3>
+                <ul>
+                    <li>Monitoramento contínuo com latência inferior a 5 segundos</li>
+                    <li>Análise de contexto e categorização automática via IA</li>
+                    <li>Distribuição inteligente baseada em carga de trabalho e expertise</li>
+                    <li>Notificação instantânea e personalizada via WhatsApp</li>
+                </ul>
+                
+                <h3>Fase Beta: Interação Conversacional Avançada</h3>
+                <ul>
+                    <li>Interface de chat com botões interativos e respostas rápidas</li>
+                    <li>Validação em tempo real dos dados inseridos</li>
+                    <li>Captura automática de evidências (fotos, localização, áudio)</li>
+                    <li>Assistente virtual para padronização de resoluções</li>
+                </ul>
+                
+                <h3>Fase Gamma: Fechamento e Sincronização Total</h3>
+                <ul>
+                    <li>Propagação instantânea do status para todos os sistemas</li>
+                    <li>Geração automática de relatórios de atendimento</li>
+                    <li>Métricas de SLA calculadas automaticamente</li>
+                    <li>Feedback loop para melhoria contínua</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="page">
+            <div class="content">
+                <h2>Interface Conversacional</h2>
+                <p>Experiência simples e intuitiva para o técnico através do WhatsApp.</p>
+                
+                <div class="code-box">
+                    <div class="comment">// Notificação automática</div>
+                    <div><span class="highlight">Bot:</span> <span class="string">Novo chamado #12345 atribuído</span></div>
+                    <div><span class="string">Cliente: Angeloni | Prioridade: Alta</span></div>
+                    <div><span class="string">Problema: Impressora fiscal travada</span></div>
+                    <div></div>
+                    <div><span class="button">Aceitar</span> <span class="button">Detalhes</span></div>
+                    <div></div>
+                    <div class="comment">// Técnico aceita e resolve</div>
+                    <div><span class="highlight">Técnico:</span> [Aceita o chamado]</div>
+                    <div><span class="highlight">Bot:</span> <span class="string">Descreva a solução aplicada:</span></div>
+                    <div><span class="highlight">Técnico:</span> <span class="string">Troca do módulo térmico. Teste OK.</span></div>
+                    <div></div>
+                    <div><span class="highlight">Bot:</span> <span class="string">Resolvido! Houve deslocamento?</span></div>
+                    <div><span class="button">Sim</span> <span class="button">Não</span></div>
+                </div>
+                
+                <h2>Cronograma de Implementação Express</h2>
+                
+                <div class="benefits">
+                    <div class="benefit-card">
+                        <div class="benefit-title">Semana 1: Foundation</div>
+                        <div class="benefit-text">• Setup de ambiente e infraestrutura<br>
+                        • Integração APIs GLPI<br>
+                        • Configuração do Orquestrador<br>
+                        • Testes de conectividade</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">Semana 2: Launch</div>
+                        <div class="benefit-text">• Integração WhatsApp Business<br>
+                        • Implementação de fluxos conversacionais<br>
+                        • Testes end-to-end<br>
+                        • Treinamento e Go-Live</div>
+                    </div>
+                </div>
+                
+                <h2>Garantias e Suporte</h2>
+                <ul>
+                    <li><strong>Suporte 24/7</strong> durante os primeiros 30 dias pós-implementação</li>
+                    <li><strong>Treinamento completo</strong> para toda a equipe técnica</li>
+                    <li><strong>Documentação detalhada</strong> e manuais de operação</li>
+                    <li><strong>SLA de 99.9%</strong> de disponibilidade do sistema</li>
+                    <li><strong>Atualizações contínuas</strong> e melhorias incrementais</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="page">
+            <div class="content">
+                <h2>Impacto e Retorno do Investimento</h2>
+                
+                <div class="benefits">
+                    <div class="benefit-card">
+                        <div class="benefit-title">75% Aumento de Produtividade</div>
+                        <div class="benefit-text">Redução drástica do tempo gasto em tarefas administrativas, liberando o time para focar em soluções técnicas de alto valor.</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">50% Redução no Tempo de Resposta</div>
+                        <div class="benefit-text">Notificações instantâneas e interface mobile permitem ação imediata em qualquer lugar, a qualquer momento.</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">100% de Rastreabilidade</div>
+                        <div class="benefit-text">Cada interação é registrada e sincronizada, criando um histórico completo e auditável de todos os atendimentos.</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">ROI em 60 Dias</div>
+                        <div class="benefit-text">Economia operacional e ganhos de eficiência garantem retorno total do investimento em apenas 2 meses.</div>
+                    </div>
+                </div>
+                
+                <h2>Tecnologias de Ponta Utilizadas</h2>
+                <ul>
+                    <li><strong>Node.js + TypeScript:</strong> Performance e type safety para o Orquestrador</li>
+                    <li><strong>WhatsApp Business API:</strong> Comunicação oficial e segura</li>
+                    <li><strong>Docker + Kubernetes:</strong> Escalabilidade e resiliência</li>
+                    <li><strong>Redis:</strong> Cache de alta performance para otimização</li>
+                    <li><strong>PostgreSQL:</strong> Banco de dados robusto para logs e métricas</li>
+                    <li><strong>OAuth 2.0 + JWT:</strong> Segurança de nível enterprise</li>
+                </ul>
+                
+                <h2>Por que escolher o NEXUS?</h2>
+                <p>O NEXUS não é apenas uma ferramenta - é uma transformação completa na forma como sua equipe interage com o suporte técnico. Combinamos o melhor da tecnologia com design centrado no usuário para criar uma experiência que seus técnicos vão adorar usar.</p>
+                
+                <div style="margin-top: 60px; padding: 30px; background: #f8f9fa; border-radius: 15px; text-align: center;">
+                    <h3 style="color: #007bff; margin-bottom: 20px;">Pronto para revolucionar seu suporte?</h3>
+                    <p><strong>Vico - Transformando ideias em soluções digitais</strong></p>
+                    <p>contato@vico.com.br | www.vico.com.br</p>
+                    <p style="margin-top: 20px; font-size: 18px; color: #007bff;">
+                        <strong>Implementação completa em apenas 2 semanas!</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            const element = document.getElementById('content-to-print');
+            const opt = {
+                margin:       0,
+                filename:     'Proposta_NEXUS.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        });
+    </script>
+</body>
+</html>
